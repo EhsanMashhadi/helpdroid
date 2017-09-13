@@ -1,0 +1,27 @@
+language: android
+sudo: true
+jdk: oraclejdk8
+
+android:
+  components:
+  - tools
+  - platform-tools
+  - tools
+  - build-tools-25.0.3
+  - extra-google-google_play_services
+  - extra-google-m2repository
+  - extra-android-m2repository
+  - addon-google_apis-google-19
+  - android-25
+  - android-22
+  - sys-img-armeabi-v7a-android-22
+
+before_script:
+- chmod +x gradlew
+- echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+- emulator -avd test -no-skin -no-audio -no-window &
+- android-wait-for-emulator
+- adb shell input keyevent 82 &
+
+script:
+- "./gradlew connectedAndroidTest
