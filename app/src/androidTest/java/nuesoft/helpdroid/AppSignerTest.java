@@ -19,8 +19,6 @@ import nuesoft.helpdroid.application.AppSigner;
  */
 
 @RunWith(AndroidJUnit4.class)
-
-
 public class AppSignerTest {
 
     @Test

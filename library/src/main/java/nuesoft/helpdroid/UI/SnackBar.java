@@ -8,7 +8,6 @@ import android.widget.TextView;
 public class SnackBar {
 
     public static void showSnackBar(View view, String message, int backgroundColor, int textColor, Typeface typeface) {
-        try {
 
             final Snackbar snackBar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
             snackBar.getView().setBackgroundColor(backgroundColor);
@@ -16,8 +15,6 @@ public class SnackBar {
             textView.setTypeface(typeface);
             textView.setTextColor(textColor);
             snackBar.show();
-        } catch (Exception exception) {
-            throw exception;
-        }
+
     }
 }
