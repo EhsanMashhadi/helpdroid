@@ -21,6 +21,7 @@ import java.security.cert.X509Certificate;
 public class AppSigner {
 
     public static String getSign(Context context, String algorithm) throws CertificateException, NoSuchAlgorithmException, PackageManager.NameNotFoundException {
+
         PackageManager packageManager = context.getPackageManager();
         String packageName = context.getPackageName();
         int flags = PackageManager.GET_SIGNATURES;
