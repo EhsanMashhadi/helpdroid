@@ -28,7 +28,7 @@ compile 'com.github.Carrene:helpdroid:v0.1.0'
     
 ### device
 * DeviceUtil
-    - connection to internet
+    - connection to internet (Internet permission)
     - device name
     - device time zone
 * FileManager
