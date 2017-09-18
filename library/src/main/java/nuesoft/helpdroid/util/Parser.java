@@ -11,7 +11,7 @@ import io.jsonwebtoken.Jwts;
  * Created by mysterious on 9/12/17.
  */
 
-public class Util {
+public class Parser {
 
     public static Map<String, Object> getTokenBody(String jwsToken) {
         String jwtToken = jwsToken.substring(0, jwsToken.lastIndexOf(".") + 1);
