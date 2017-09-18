@@ -6,11 +6,11 @@ import java.util.IllformedLocaleException;
  * Created by mysterious on 9/16/17.
  */
 
-public class StringConvertor {
+public class StringConverter {
 
     private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
 
-    public static byte[] parseHex(String hex) throws Exception {
+    public static byte[] hexStringToBytes(String hex) throws Exception {
 
         int length = hex.length();
         if (length % 2 != 0) {
@@ -39,7 +39,7 @@ public class StringConvertor {
         throw new Exception("Illegal hex digit: " + c);
     }
 
-    public static String bytesToHex(byte[] bytes) {
+    public static String bytesToHexString(byte[] bytes) {
         char[] hexChars = new char[bytes.length * 2];
         for (int j = 0; j < bytes.length; j++) {
             int v = bytes[j] & 0xFF;

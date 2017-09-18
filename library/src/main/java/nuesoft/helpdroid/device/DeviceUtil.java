@@ -10,7 +10,7 @@ import java.util.Calendar;
  * Created by mysterious on 9/12/17.
  */
 
-public class Device {
+public class DeviceUtil {
 
 
     public static boolean isConnectedToInternet(Context context) {
@@ -25,7 +25,7 @@ public class Device {
         return android.os.Build.MODEL;
     }
 
-    public static String getDevieTimeZone() {
+    public static String getDeviceTimeZone() {
 
         Calendar calendar = Calendar.getInstance();
         return calendar.getTimeZone().getID();

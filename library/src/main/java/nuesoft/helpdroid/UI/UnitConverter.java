@@ -8,7 +8,7 @@ import android.util.DisplayMetrics;
  * Created by mysterious on 9/15/17.
  */
 
-public class Unit {
+public class UnitConverter {
 
     public static float dpToPx(float dp, Context context) {
         Resources resources = context.getResources();
