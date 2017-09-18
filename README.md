@@ -39,7 +39,7 @@ compile 'com.github.Carrene:helpdroid:v0.1.0'
     - isRootedWithoutBusyBox
 
 ### string
-* StringConvertor
+* StringConverter
     - hexStringToBytes
     - bytesToHexString
 
