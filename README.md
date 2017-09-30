@@ -31,6 +31,8 @@ compile 'com.github.Carrene:helpdroid:v0.1.0'
     - connection to internet (Internet permission)
     - device name
     - device time zone
+    - device secure id
+
 * FileManager
     - copy (source, destination)
     - delete
