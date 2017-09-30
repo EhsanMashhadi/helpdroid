@@ -3,6 +3,7 @@ package nuesoft.helpdroid.device;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.provider.Settings;
 
 import java.util.Calendar;
 
@@ -29,5 +30,11 @@ public class DeviceUtil {
 
         Calendar calendar = Calendar.getInstance();
         return calendar.getTimeZone().getID();
+    }
+
+    public static String getSecureId(Context context) {
+
+        String secureId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        return secureId;
     }
 }

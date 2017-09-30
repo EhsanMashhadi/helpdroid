@@ -12,7 +12,7 @@ import nuesoft.helpdroid.device.DeviceUtil;
  * Created by mysterious on 9/12/17.
  */
 
-public class DeviceParserTest {
+public class DeviceUtilTest {
 
 
     @Test
@@ -35,8 +35,15 @@ public class DeviceParserTest {
     }
 
     @Test
-    public void testTimeZoen() {
+    public void testTimeZone() {
         String timeZone = DeviceUtil.getDeviceTimeZone();
         Assert.assertEquals(timeZone, "Asia/Tehran");
+    }
+
+    @Test
+    public void testSecureId() {
+        Context context = InstrumentationRegistry.getTargetContext();
+        String secureId = DeviceUtil.getSecureId(context);
+        Assert.assertNotNull(secureId);
     }
 }
