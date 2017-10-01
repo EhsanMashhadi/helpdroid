@@ -22,7 +22,7 @@ public class ScreenLockerTest {
 
 
         double startTime = System.currentTimeMillis();
-        ScreenLocker screenLocker = new ScreenLocker(1000, new ScreenLocker.LockInterface() {
+        ScreenLocker screenLocker = new ScreenLocker(5000, new ScreenLocker.LockInterface() {
             @Override
             public void locked() {
                 endTime = System.currentTimeMillis();
@@ -31,6 +31,9 @@ public class ScreenLockerTest {
         });
 
         screenLocker.start();
+
+        screenLocker.restart(1000);
+
         try {
             countDownLatch.await();
         } catch (InterruptedException e) {
