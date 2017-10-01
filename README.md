@@ -17,7 +17,7 @@ allprojects {
 ```
 Add dependency on module build.gradle
 ```android
-compile 'com.github.Carrene:helpdroid:v0.1.0'
+compile 'com.github.Carrene:helpdroid:$version'
 ```
 ### application
 * AppSigner
