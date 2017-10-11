@@ -22,7 +22,7 @@ public class ScreenLockerTest {
 
 
         double startTime = System.currentTimeMillis();
-        ScreenLocker screenLocker = new ScreenLocker(5000, new ScreenLocker.LockInterface() {
+        ScreenLocker.getInstance().init(5000, new ScreenLocker.LockInterface() {
             @Override
             public void locked() {
                 endTime = System.currentTimeMillis();
@@ -30,9 +30,9 @@ public class ScreenLockerTest {
             }
         });
 
-        screenLocker.start();
+        ScreenLocker.getInstance().start();
 
-        screenLocker.restart(1000);
+        ScreenLocker.getInstance().restart(1000);
 
         try {
             countDownLatch.await();
@@ -50,7 +50,7 @@ public class ScreenLockerTest {
 
 
         double startTime = System.currentTimeMillis();
-        ScreenLocker screenLocker = new ScreenLocker(5000, new ScreenLocker.LockInterface() {
+        ScreenLocker.getInstance().init(5000, new ScreenLocker.LockInterface() {
             @Override
             public void locked() {
                 endTime = System.currentTimeMillis();
@@ -58,7 +58,7 @@ public class ScreenLockerTest {
             }
         });
 
-        screenLocker.start();
+        ScreenLocker.getInstance().start();
         try {
             countDownLatch.await();
         } catch (InterruptedException e) {
@@ -75,7 +75,7 @@ public class ScreenLockerTest {
 
 
         double startTime = System.currentTimeMillis();
-        ScreenLocker screenLocker = new ScreenLocker(50000, new ScreenLocker.LockInterface() {
+        ScreenLocker.getInstance().init(50000, new ScreenLocker.LockInterface() {
             @Override
             public void locked() {
                 endTime = System.currentTimeMillis();
@@ -83,12 +83,12 @@ public class ScreenLockerTest {
             }
         });
 
-        screenLocker.start();
+        ScreenLocker.getInstance().start();
         try {
             countDownLatch.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Assert.assertEquals(endTime - startTime, 50000, 50);
+        Assert.assertEquals(endTime - startTime, 50000, 100);
     }
 }

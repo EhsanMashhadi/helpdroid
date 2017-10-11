@@ -14,12 +14,24 @@ public class ScreenLocker {
         void locked();
     }
 
+
     private Handler _handler;
     private Runnable _runnable;
     private int _time;
+    private static ScreenLocker instance;
 
-    public ScreenLocker(int millisecondTime, final LockInterface lockInterface) {
+    private ScreenLocker() {
 
+    }
+
+    public static ScreenLocker getInstance() {
+        if (instance == null) {
+            instance = new ScreenLocker();
+        }
+        return instance;
+    }
+
+    public void init(int millisecondTime, final LockInterface lockInterface) {
         _handler = new Handler(Looper.getMainLooper());
         _time = millisecondTime;
         _runnable = new Runnable() {
