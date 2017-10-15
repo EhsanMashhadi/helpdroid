@@ -49,10 +49,12 @@ public class ScreenLocker {
     }
 
     public void start() {
-        _handler.postDelayed(_runnable, _time);
+        if (_runnable != null)
+            _handler.postDelayed(_runnable, _time);
     }
 
     public void stop() {
-        _handler.removeCallbacks(_runnable);
+        if (_runnable != null)
+            _handler.removeCallbacks(_runnable);
     }
 }
