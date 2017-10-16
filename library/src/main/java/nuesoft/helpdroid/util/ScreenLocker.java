@@ -25,6 +25,7 @@ public class ScreenLocker {
     }
 
     public static ScreenLocker getInstance() {
+
         if (instance == null) {
             instance = new ScreenLocker();
         }
@@ -32,28 +33,33 @@ public class ScreenLocker {
     }
 
     public void init(int millisecondTime, final LockInterface lockInterface) {
+
         _handler = new Handler(Looper.getMainLooper());
         _time = millisecondTime;
         _runnable = new Runnable() {
             @Override
             public void run() {
+
                 lockInterface.locked();
             }
         };
     }
 
     public void restart(int millisecondTime) {
+
         stop();
         this._time = millisecondTime;
         start();
     }
 
     public void start() {
+
         if (_runnable != null)
             _handler.postDelayed(_runnable, _time);
     }
 
     public void stop() {
+
         if (_runnable != null)
             _handler.removeCallbacks(_runnable);
     }
