@@ -45,12 +45,9 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
-
-
+    compile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.scottyab:rootbeer-lib:0.0.6'
     compile 'io.jsonwebtoken:jjwt:0.7.0'
-
 }
