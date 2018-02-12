@@ -19,14 +19,14 @@ Add dependency on module build.gradle
 ```android
 compile 'com.github.Carrene:helpdroid:$version'
 ```
-### application
+### Application
 * AppSigner
     - digest of application sign SHA1, SHA256, SHA512
 * Version
     - version code
     - version name
     
-### device
+### Device
 * DeviceUtil
     - connection to internet (Internet permission)
     - device name
@@ -40,12 +40,12 @@ compile 'com.github.Carrene:helpdroid:$version'
     - isRooted
     - isRootedWithoutBusyBox
 
-### string
+### String
 * StringConverter
     - hexStringToBytes
     - bytesToHexString
 
-### ui
+### UI
 * Keyboard
     - hide keyboard
     - show keyboard
@@ -55,14 +55,16 @@ compile 'com.github.Carrene:helpdroid:$version'
     - dp to px
     - px to db
  
- ### util
+ ### Util
  * Parser
     - parse jwt
  * Screen Locker
  * Shamsi calendar
  
- ### validation
+ ### Validation
  * Validator
     - email validator
     - phone validator
     - password validator
+### Test
+* Ordered test case
