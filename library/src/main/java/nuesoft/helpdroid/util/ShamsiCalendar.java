@@ -13,11 +13,13 @@ public class ShamsiCalendar {
     private int year;
 
     private ShamsiCalendar() {
+
         Date MiladiDate = new Date();
         calcShamsiCalendar(MiladiDate);
     }
 
     public ShamsiCalendar(Date MiladiDate) {
+
         calcShamsiCalendar(MiladiDate);
     }
 
@@ -234,7 +236,16 @@ public class ShamsiCalendar {
         }
     }
 
+    public static String convertToShamsiDate(Date date) {
+
+        Locale loc = new Locale("en_US");
+        ShamsiCalendar shamsiCalendar = new ShamsiCalendar(date);
+        return String.valueOf(shamsiCalendar.year) + "/" + String.format(loc, "%02d",
+                shamsiCalendar.month) + "/" + String.format(loc, "%02d", shamsiCalendar.date);
+    }
+
     public static String getCurrentShamsiDate() {
+
         Locale loc = new Locale("en_US");
         ShamsiCalendar shamsiCalendar = new ShamsiCalendar();
         return String.valueOf(shamsiCalendar.year) + "/" + String.format(loc, "%02d",
