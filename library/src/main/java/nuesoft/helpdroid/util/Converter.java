@@ -11,20 +11,38 @@ import java.text.SimpleDateFormat;
 
 public class Converter {
 
-    public static byte[] hexStringToByteArray(String s) {
+    private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
 
-        int len = s.length();
-        byte[] data = new byte[len / 2];
-        for (int i = 0; i < len; i += 2) {
-            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
-                    + Character.digit(s.charAt(i + 1), 16));
+    public static byte[] hexStringToBytes(String hex) throws Exception {
+
+        int length = hex.length();
+        if (length % 2 != 0) {
+            throw new Exception("Illegal string length: " + length);
         }
-        return data;
+
+        int bytesLength = length / 2;
+        byte[] bytes = new byte[bytesLength];
+        int idxChar = 0;
+        for (int i = 0; i < bytesLength; i++) {
+            int value = parseHexDigit(hex.charAt(idxChar++)) << 4;
+            value |= parseHexDigit(hex.charAt(idxChar++));
+            bytes[i] = (byte) value;
+        }
+        return bytes;
     }
 
-    public static String byteArrayToHexString(byte[] bytes) {
+    public static int parseHexDigit(char c) throws Exception {
+        if ('0' <= c && c <= '9') {
+            return c - '0';
+        } else if ('A' <= c && c <= 'F') {
+            return c - 'A' + 10;
+        } else if ('a' <= c && c <= 'f') {
+            return c - 'a' + 10;
+        }
+        throw new Exception("Illegal hex digit: " + c);
+    }
 
-        char[] hexArray = "0123456789ABCDEF".toCharArray();
+    public static String bytesToHexString(byte[] bytes) {
         char[] hexChars = new char[bytes.length * 2];
         for (int j = 0; j < bytes.length; j++) {
             int v = bytes[j] & 0xFF;
@@ -111,14 +129,14 @@ public class Converter {
         return buffer.get(0);
     }
 
-    public static int byteArrayToIntLittleEndiant(byte[] value) {
+    public static int byteArrayToIntLittleEndian(byte[] value) {
 
         ByteBuffer buffer = ByteBuffer.wrap(value);
         buffer.order(ByteOrder.LITTLE_ENDIAN);
         return buffer.getInt();
     }
 
-    public static int byteArrayToIntBigEndiant(byte[] value) {
+    public static int byteArrayToIntBigEndian(byte[] value) {
 
         ByteBuffer buffer = ByteBuffer.wrap(value);
         buffer.order(ByteOrder.BIG_ENDIAN);

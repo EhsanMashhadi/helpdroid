@@ -4,19 +4,19 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import nuesoft.helpdroid.string.StringConverter;
+import nuesoft.helpdroid.util.Converter;
 
 /**
  * Created by mysterious on 9/16/17.
  */
 
-public class StringTest {
+public class ConverterTest {
 
     @Test
     public void stringToHex() {
 
         try {
-            byte[] byteArray = StringConverter.hexStringToBytes("A1B2C3");
+            byte[] byteArray = Converter.hexStringToBytes("A1B2C3");
             Assert.assertNotNull(byteArray);
         } catch (Exception e) {
             e.printStackTrace();
@@ -28,7 +28,7 @@ public class StringTest {
     public void stringToHexWrongLength() {
 
         try {
-            StringConverter.hexStringToBytes("a1b");
+            Converter.hexStringToBytes("a1b");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -38,7 +38,7 @@ public class StringTest {
     public void stringToHexWrongDigit() {
 
         try {
-            StringConverter.hexStringToBytes("WRONGDIGIT");
+            Converter.hexStringToBytes("WRONGDIGIT");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,7 +50,7 @@ public class StringTest {
         bytes[0] = -95;
         bytes[1] = -78;
         bytes[2] = -61;
-        String hexString = StringConverter.bytesToHexString(bytes);
+        String hexString = Converter.bytesToHexString(bytes);
         Assert.assertEquals(hexString, "A1B2C3");
     }
 }

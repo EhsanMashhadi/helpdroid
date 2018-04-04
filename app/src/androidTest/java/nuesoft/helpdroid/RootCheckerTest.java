@@ -6,8 +6,6 @@ import android.support.test.InstrumentationRegistry;
 import org.junit.Assert;
 import org.junit.Test;
 
-import nuesoft.helpdroid.device.RootChecker;
-
 /**
  * Created by mysterious on 9/3/17.
  */

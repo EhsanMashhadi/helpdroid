@@ -3,8 +3,8 @@ apply plugin: 'com.github.dcendents.android-maven'
 group = 'com.github.Carrene'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
 
     defaultConfig {
         minSdkVersion 17
@@ -50,4 +50,8 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     compile 'com.scottyab:rootbeer-lib:0.0.6'
     compile 'io.jsonwebtoken:jjwt:0.7.0'
+    testCompile "org.mockito:mockito-core:+"
+    androidTestCompile "org.mockito:mockito-android:+"
+    androidTestCompile "org.robolectric:robolectric:3.8"
+
 }

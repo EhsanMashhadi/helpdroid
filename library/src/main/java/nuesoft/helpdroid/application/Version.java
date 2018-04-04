@@ -17,7 +17,6 @@ public class Version {
             String versionName = packageInfo.versionName;
             return versionName;
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
             throw e;
         }
     }
@@ -29,7 +28,6 @@ public class Version {
             int versionCode = packageInfo.versionCode;
             return versionCode;
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
             throw e;
         }
     }

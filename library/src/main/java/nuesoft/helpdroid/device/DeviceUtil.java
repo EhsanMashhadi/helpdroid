@@ -1,5 +1,6 @@
 package nuesoft.helpdroid.device;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -17,6 +18,7 @@ public class DeviceUtil {
     public static boolean isConnectedToInternet(Context context) {
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        @SuppressLint("MissingPermission")
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
