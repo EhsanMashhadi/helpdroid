@@ -50,8 +50,9 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     compile 'com.scottyab:rootbeer-lib:0.0.6'
     compile 'io.jsonwebtoken:jjwt:0.7.0'
-
+    testCompile "org.mockito:mockito-core:2.18.3"
+    androidTestCompile "org.mockito:mockito-android:2.18.3"
     androidTestCompile "org.robolectric:robolectric:3.8"
-    androidTestCompile group: 'org.mockito', name: 'mockito-core', version: '2.18.3'
+
 
 }

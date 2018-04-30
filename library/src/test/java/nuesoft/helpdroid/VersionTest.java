@@ -12,7 +12,6 @@ import org.mockito.MockitoAnnotations;
 
 import nuesoft.helpdroid.application.Version;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 
