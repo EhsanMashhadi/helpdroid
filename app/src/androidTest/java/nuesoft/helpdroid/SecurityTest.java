@@ -29,6 +29,18 @@ public class SecurityTest {
     @Test
     public void isPackageNameTampered() {
 
+        Boolean state;
+        Context context=InstrumentationRegistry.getTargetContext();
+        if(context.getPackageName().equals("nuesoft.helpdroid.application")){
+
+            state=false;
+        }
+        else{
+
+            state=true;
+        }
+        Assert.assertTrue(!state);
+        Assert.assertFalse(state);
 
     }
 
