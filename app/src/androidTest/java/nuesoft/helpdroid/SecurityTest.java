@@ -3,6 +3,7 @@ package nuesoft.helpdroid;
 import android.content.Context;
 import android.os.Build;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.Root;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.ContextThemeWrapper;
 
@@ -50,6 +51,9 @@ public class SecurityTest {
     public void isRootedWithoutBusyBox() {
 
         Context context=InstrumentationRegistry.getTargetContext();
+        RootBeer rootBeer=new RootBeer(context);
+        Boolean state=rootBeer.isRootedWithoutBusyBoxCheck();
+        Assert.assertFalse(state);
 
     }
 
