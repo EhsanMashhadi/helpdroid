@@ -12,8 +12,6 @@ import org.junit.runner.RunWith;
 
 import nuesoft.helpdroid.application.ApplicationUtil;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by mysterious on 10/12/17.
@@ -37,12 +35,5 @@ public class ApplicationUtilTest {
         }
     }
 
-    @Test
-    public void testDebuggable(){
 
-        Context context = mock(Context.class);
-        when(context.getApplicationInfo().FLAG_DEBUGGABLE).thenReturn(2);
-        Assert.assertTrue(ApplicationUtil.isDebuggable(context));
-
-    }
 }

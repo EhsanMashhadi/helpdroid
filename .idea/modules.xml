@@ -3,11 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/helpdroid.iml" filepath="$PROJECT_DIR$/helpdroid.iml" />
+      <module fileurl="file://D:\androidstudioprojects\helpdroid\app\app.iml" filepath="D:\androidstudioprojects\helpdroid\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/helpdroid.iml" filepath="$PROJECT_DIR$/helpdroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://D:\androidstudioprojects\helpdroid\library\library.iml" filepath="D:\androidstudioprojects\helpdroid\library\library.iml" />
     </modules>
   </component>
 </project>
