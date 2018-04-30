@@ -3,7 +3,6 @@ package nuesoft.helpdroid;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.mock.MockContext;
 
 import junit.framework.Assert;
 
@@ -35,5 +34,11 @@ public class ApplicationUtilTest {
         }
     }
 
+    @Test
+    public void testDebuggable(){
 
+        Context context = InstrumentationRegistry.getTargetContext();
+        Assert.assertTrue(ApplicationUtil.isDebuggable(context));
+
+    }
 }
