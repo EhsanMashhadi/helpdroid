@@ -1,11 +1,9 @@
 package nuesoft.helpdroid;
 
 import android.content.Context;
-import android.os.Build;
+import android.provider.Settings;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.Root;
 import android.support.test.runner.AndroidJUnit4;
-import android.view.ContextThemeWrapper;
 
 import com.scottyab.rootbeer.RootBeer;
 
@@ -19,10 +17,12 @@ public class SecurityTest {
 
 
     @Test
-    public void isDeveloperOptionOn() {
+    public void isDeveloperOptionOn() throws Settings.SettingNotFoundException {
 
         Context context = InstrumentationRegistry.getTargetContext();
-
+        int state= Settings.Secure.getInt(context.getContentResolver(),Settings.Global.DEVELOPMENT_SETTINGS_ENABLED);
+        Assert.assertEquals(state,1);
+        org.junit.Assert.assertNotEquals(state,0);
 
     }
 
