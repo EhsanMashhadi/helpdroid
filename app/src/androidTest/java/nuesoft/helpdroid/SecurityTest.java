@@ -1,6 +1,7 @@
 package nuesoft.helpdroid;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.provider.Settings;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
@@ -11,6 +12,11 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+
+import nuesoft.helpdroid.application.AppSigner;
 
 @RunWith(AndroidJUnit4.class)
 public class SecurityTest {
@@ -45,8 +51,18 @@ public class SecurityTest {
     }
 
     @Test
-    public void isCertificateTampered() {
+    public void isCertificateTampered() throws CertificateException, NoSuchAlgorithmException, PackageManager.NameNotFoundException {
 
+        Context context=InstrumentationRegistry.getTargetContext();
+        String SHA1,SHA256;
+        SHA1=AppSigner.getSign(context,"SHA1");
+        SHA256=AppSigner.getSign(context,"SHA256");
+        Assert.assertEquals(SHA1,"E31DE24C0976371BCAE8810C25F4D13473DE4FE0");
+        Assert.assertEquals(SHA256,"87DBE3FCBDFEACE63FF1E59ED73CDB04B670E0A9B517A6CE96EE5A0117FD6737");
+        org.junit.Assert.assertNotEquals(SHA1,"");
+        org.junit.Assert.assertNotEquals(SHA256,"");
+        org.junit.Assert.assertNotEquals(SHA1,null);
+        org.junit.Assert.assertNotEquals(SHA256,null);
 
     }
 
