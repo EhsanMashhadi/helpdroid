@@ -29,4 +29,12 @@ public class ShamsiCalendarTest {
         String shamsiDate = ShamsiCalendar.convertToShamsiDate(date);
         Assert.assertEquals(shamsiDate, "1397/05/10");
     }
+
+    @Test
+    public void getCurrentShamsiDateTest(){
+
+        String shamsiDate=ShamsiCalendar.getCurrentShamsiDate();
+        Assert.assertEquals(shamsiDate,"1397/02/13");
+
+    }
 }
