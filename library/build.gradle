@@ -3,12 +3,12 @@ apply plugin: 'com.github.dcendents.android-maven'
 group = 'com.github.EhsanMashhadi'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         minSdkVersion 17
-        targetSdkVersion 27
+        targetSdkVersion 25
         versionCode 1
         versionName "0.6.0"
 
@@ -41,18 +41,18 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation 'junit:junit:4.12'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.scottyab:rootbeer-lib:0.0.6'
-    implementation 'io.jsonwebtoken:jjwt:0.7.0'
-    testImplementation "org.mockito:mockito-core:2.18.3"
-    androidTestImplementation "org.mockito:mockito-android:2.18.3"
-    androidTestImplementation "org.robolectric:robolectric:3.8"
+    compile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:27.1.1'
+    compile 'com.android.support:design:27.1.1'
+    compile 'com.scottyab:rootbeer-lib:0.0.6'
+    compile 'io.jsonwebtoken:jjwt:0.7.0'
+    testCompile "org.mockito:mockito-core:2.18.3"
+    androidTestCompile "org.mockito:mockito-android:2.18.3"
+    androidTestCompile "org.robolectric:robolectric:3.8"
 
 
 }
