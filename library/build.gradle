@@ -56,6 +56,4 @@ dependencies {
     testImplementation "org.mockito:mockito-core:2.18.3"
     androidTestImplementation "org.mockito:mockito-android:2.18.3"
     androidTestImplementation "org.robolectric:robolectric:3.8"
-
-
 }
