@@ -1,7 +1,7 @@
 # helpdroid
 Android toolbox code
 ====
-[![](https://jitpack.io/v/Ehsanmashhadi/helpdroid.svg)](https://jitpack.io/#ehsanmashhadi/helpdroid)
+[![](https://jitpack.io/v/Ehsanmashhadi/helpdroid.svg)](https://jitpack.io/#Ehsanmashhadi/helpdroid)
 
 ### Dependency
 
@@ -17,7 +17,7 @@ allprojects {
 ```
 Add dependency on module build.gradle
 ```android
-compile 'com.github.Carrene:helpdroid:$version'
+compile 'com.github.ehsanmashhadi:helpdroid:$version'
 ```
 ### Application
 * AppSigner
