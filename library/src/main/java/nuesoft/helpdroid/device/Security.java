@@ -28,7 +28,7 @@ public class Security {
         return false;
     }
 
-    public static boolean isPackageNameTampered(Context context,String packageName) {
+    public static boolean isPackageNameTampered(Context context, String packageName) {
 
         if (context.getPackageName().equals(packageName) == false) {
             return true;
@@ -36,14 +36,14 @@ public class Security {
         return false;
     }
 
-    public static boolean isCertificateTampered(Context context,String sha1Sign,String sha256Sign) throws CertificateException, NoSuchAlgorithmException, PackageManager.NameNotFoundException {
+    public static boolean isCertificateTampered(Context context, String sha1Sign, String sha256Sign) throws CertificateException, NoSuchAlgorithmException, PackageManager.NameNotFoundException {
 
         try {
 
             String SHA1 = AppSigner.getSign(context, "SHA1");
             String SHA256 = AppSigner.getSign(context, "SHA256");
 
-            if (sha1Sign.equals(SHA1) == false || sha256Sign.equals(SHA256) == false) {
+            if (!sha1Sign.equals(SHA1) || !sha256Sign.equals(SHA256)) {
 
                 return true;
             }
@@ -60,11 +60,13 @@ public class Security {
     }
 
     public static boolean isRooted(Context context) {
+
         RootBeer rootBeer = new RootBeer(context);
         return rootBeer.isRooted();
     }
 
     public static boolean isRootedWithoutBusyBox(Context context) {
+
         RootBeer rootBeer = new RootBeer(context);
         return rootBeer.isRootedWithoutBusyBoxCheck();
     }

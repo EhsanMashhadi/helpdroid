@@ -15,7 +15,7 @@ import org.junit.Assert;
 public class ConverterTest {
 
     @Test
-    public void stringToHex() {
+    public void testConvert_byteToHex() {
 
         try {
             byte[] byteArray = Converter.hexStringToBytes("A1B2C3");

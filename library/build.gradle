@@ -51,8 +51,9 @@ dependencies {
     implementation 'junit:junit:4.12'
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
-    implementation 'com.scottyab:rootbeer-lib:0.0.6'
     implementation 'io.jsonwebtoken:jjwt:0.7.0'
+    implementation 'com.scottyab:rootbeer-lib:0.0.7'
+
     testImplementation "org.mockito:mockito-core:2.18.3"
     androidTestImplementation "org.mockito:mockito-android:2.18.3"
     androidTestImplementation "org.robolectric:robolectric:3.8"
