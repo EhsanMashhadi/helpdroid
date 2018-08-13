@@ -2,8 +2,6 @@ package nuesoft.helpdroid.crypto;
 
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
-import java.security.Key;
-import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.Security;
@@ -12,6 +10,7 @@ import java.security.spec.InvalidKeySpecException;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.Mac;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -121,5 +120,13 @@ public class CryptoUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static byte[] hmac(HmacType hmacType, byte[] key, byte[] data) throws InvalidKeyException, NoSuchAlgorithmException {
+
+        SecretKeySpec hmacKey = new SecretKeySpec(key, hmacType.toString());
+        Mac mac = Mac.getInstance(hmacType.toString());
+        mac.init(hmacKey);
+        return mac.doFinal(data);
     }
 }
