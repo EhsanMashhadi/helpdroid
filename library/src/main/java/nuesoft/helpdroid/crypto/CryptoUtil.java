@@ -1,7 +1,9 @@
 package nuesoft.helpdroid.crypto;
 
+import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.Security;
@@ -128,5 +130,50 @@ public class CryptoUtil {
         Mac mac = Mac.getInstance(hmacType.toString());
         mac.init(hmacKey);
         return mac.doFinal(data);
+    }
+
+    public static byte[] sha128(String value) {
+
+        MessageDigest messageDigest = null;
+        try {
+            messageDigest = MessageDigest.getInstance("SHA1");
+            messageDigest.update(value.getBytes("UTF-8"));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        byte[] digest = messageDigest.digest();
+        return digest;
+    }
+
+    public static byte[] sha256(String value) {
+
+        MessageDigest messageDigest = null;
+        try {
+            messageDigest = MessageDigest.getInstance("SHA-256");
+            messageDigest.update(value.getBytes("UTF-8"));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        byte[] digest = messageDigest.digest();
+        return digest;
+    }
+
+    public static byte[] sha512(String value) {
+
+        MessageDigest messageDigest = null;
+        try {
+            messageDigest = MessageDigest.getInstance("SHA-512");
+            messageDigest.update(value.getBytes("UTF-8"));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        byte[] digest = messageDigest.digest();
+        return digest;
     }
 }

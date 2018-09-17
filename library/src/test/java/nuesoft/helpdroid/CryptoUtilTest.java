@@ -11,6 +11,7 @@ import javax.crypto.SecretKey;
 
 import nuesoft.helpdroid.crypto.CryptoUtil;
 import nuesoft.helpdroid.crypto.HmacType;
+import nuesoft.helpdroid.util.Converter;
 
 public class CryptoUtilTest {
     private static final String PKDF2_HMAC_SHA1 = "PBKDF2WithHmacSHA1";
@@ -194,5 +195,29 @@ public class CryptoUtilTest {
             e.printStackTrace();
             Assert.fail(e.getLocalizedMessage());
         }
+    }
+
+    @Test
+    public void testDigest_sha128() {
+
+        String value = "This is sample text";
+        String digest = Converter.bytesToHexString(CryptoUtil.sha128(value));
+        Assert.assertEquals(digest, "451d99c8281f579bdf1e2b0f0a2a63fd23707037".toUpperCase());
+    }
+
+    @Test
+    public void testDigest_sha256() {
+
+        String value = "This is sample text";
+        String digest = Converter.bytesToHexString(CryptoUtil.sha256(value));
+        Assert.assertEquals(digest, "bf67a78f571d7ecad67ad2a5ea064edc969def57649c69fbb22eb72f4c56f87a".toUpperCase());
+    }
+
+    @Test
+    public void testDigest_sha512() {
+
+        String value = "This is sample text";
+        String digest = Converter.bytesToHexString(CryptoUtil.sha512(value));
+        Assert.assertEquals(digest, "cce3233e201810a61541ecc0e2a69bda7de751d80f35c2fcd70b19bd0612543ae18885a1d7d32f3c460cc5cab91268a93b3d04431d3b14d6eee1e44954a4513b".toUpperCase());
     }
 }
