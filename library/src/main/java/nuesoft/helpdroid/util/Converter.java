@@ -4,6 +4,10 @@ package nuesoft.helpdroid.util;
  * Created by mysterious on 10/23/17.
  */
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
+
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -150,5 +154,18 @@ public class Converter {
         return dateTimeString;
     }
 
+    public static float dpToPx(float dp, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return px;
+    }
+
+    public static float pxToDp(float px, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float dp = px / ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return dp;
+    }
 
 }

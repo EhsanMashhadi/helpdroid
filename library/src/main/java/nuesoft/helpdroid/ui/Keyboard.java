@@ -1,4 +1,4 @@
-package nuesoft.helpdroid.UI;
+package nuesoft.helpdroid.ui;
 
 import android.content.Context;
 import android.view.MotionEvent;
@@ -18,11 +18,8 @@ public class Keyboard {
         if (view == null)
             return;
 
-        InputMethodManager inputMethodManager =
-                (InputMethodManager) view.getContext().getSystemService(
-                        Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(
-                view.getWindowToken(), 0);
+        InputMethodManager inputMethodManager = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     public static void showKeyboard(View view) {
@@ -32,7 +29,6 @@ public class Keyboard {
 
         InputMethodManager inputMethodManager = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
-
     }
 
     public static void setupSoftKeyboard(final View view) {
@@ -40,6 +36,7 @@ public class Keyboard {
         if (!(view instanceof EditText)) {
             view.setOnTouchListener(new View.OnTouchListener() {
                 public boolean onTouch(View v, MotionEvent event) {
+
                     hideKeyboard(view);
                     return false;
                 }

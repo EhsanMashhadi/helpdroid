@@ -3,22 +3,16 @@ package nuesoft.helpdroid.util;
 import android.os.Handler;
 import android.os.Looper;
 
-/**
- * Created by Mysterious on 17/05/2016.
- */
-
-
 public class ScreenLocker {
 
-    public interface LockInterface {
-        void locked();
+    private Handler mHandler;
+    private Runnable mRunnable;
+    private int mTime;
+    private static ScreenLocker sInstance;
+
+    public interface LockScreenInterface {
+        void lock();
     }
-
-
-    private Handler _handler;
-    private Runnable _runnable;
-    private int _time;
-    private static ScreenLocker instance;
 
     private ScreenLocker() {
 
@@ -26,41 +20,46 @@ public class ScreenLocker {
 
     public static ScreenLocker getInstance() {
 
-        if (instance == null) {
-            instance = new ScreenLocker();
+        if (sInstance == null) {
+            sInstance = new ScreenLocker();
         }
-        return instance;
+        return sInstance;
     }
 
-    public void init(int millisecondTime, final LockInterface lockInterface) {
+    public synchronized void init(int millisecondTime, LockScreenInterface lockScreenInterface) {
 
-        _handler = new Handler(Looper.getMainLooper());
-        _time = millisecondTime;
-        _runnable = new Runnable() {
-            @Override
-            public void run() {
+        this.mHandler = new Handler(Looper.getMainLooper());
+        this.mTime = millisecondTime;
+        this.mRunnable = () -> {
 
-                lockInterface.locked();
-            }
+            stop();
+            lockScreenInterface.lock();
         };
     }
 
-    public void restart(int millisecondTime) {
+    public synchronized void restart(int millisecondTime) {
 
-        stop();
-        this._time = millisecondTime;
-        start();
+        this.stop();
+        this.mTime = millisecondTime;
+        this.start();
     }
 
-    public void start() {
+    public synchronized void start() {
 
-        if (_runnable != null)
-            _handler.postDelayed(_runnable, _time);
+        if (this.mRunnable != null) {
+            this.mHandler.postDelayed(this.mRunnable, (long) this.mTime);
+        }
     }
 
-    public void stop() {
+    public synchronized void stop() {
 
-        if (_runnable != null)
-            _handler.removeCallbacks(_runnable);
+        if (this.mHandler != null) {
+            this.mHandler.removeCallbacksAndMessages(null);
+        }
+    }
+
+    public synchronized boolean isRunning() {
+
+        return (this.mHandler != null);
     }
 }

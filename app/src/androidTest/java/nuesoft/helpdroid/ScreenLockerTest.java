@@ -22,12 +22,10 @@ public class ScreenLockerTest {
 
 
         double startTime = System.currentTimeMillis();
-        ScreenLocker.getInstance().init(5000, new ScreenLocker.LockInterface() {
-            @Override
-            public void locked() {
-                endTime = System.currentTimeMillis();
-                countDownLatch.countDown();
-            }
+        ScreenLocker.getInstance().init(5000, () -> {
+
+            endTime = System.currentTimeMillis();
+            countDownLatch.countDown();
         });
 
         ScreenLocker.getInstance().start();
@@ -50,9 +48,10 @@ public class ScreenLockerTest {
 
 
         double startTime = System.currentTimeMillis();
-        ScreenLocker.getInstance().init(5000, new ScreenLocker.LockInterface() {
+        ScreenLocker.getInstance().init(5000, new ScreenLocker.LockScreenInterface() {
             @Override
-            public void locked() {
+            public void lock() {
+
                 endTime = System.currentTimeMillis();
                 countDownLatch.countDown();
             }
@@ -75,9 +74,10 @@ public class ScreenLockerTest {
 
 
         double startTime = System.currentTimeMillis();
-        ScreenLocker.getInstance().init(50000, new ScreenLocker.LockInterface() {
+        ScreenLocker.getInstance().init(50000, new ScreenLocker.LockScreenInterface() {
             @Override
-            public void locked() {
+            public void lock() {
+
                 endTime = System.currentTimeMillis();
                 countDownLatch.countDown();
             }

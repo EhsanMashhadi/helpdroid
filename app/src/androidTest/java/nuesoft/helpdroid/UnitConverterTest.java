@@ -8,7 +8,7 @@ import android.util.DisplayMetrics;
 import org.junit.Assert;
 import org.junit.Test;
 
-import nuesoft.helpdroid.UI.UnitConverter;
+import nuesoft.helpdroid.util.Converter;
 
 /**
  * Created by mysterious on 9/16/17.
@@ -23,7 +23,7 @@ public class UnitConverterTest {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
         if (metrics.densityDpi == 560) {
-            float px = UnitConverter.dpToPx(35, context);
+            float px = Converter.dpToPx(35, context);
             Assert.assertEquals(px, 122.5, 5);
         }
     }
@@ -34,7 +34,7 @@ public class UnitConverterTest {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
         if (metrics.densityDpi == 560) {
-            float px = UnitConverter.pxToDp(100, context);
+            float px = Converter.pxToDp(100, context);
             Assert.assertEquals(px, 28.571428, 5);
         }
     }

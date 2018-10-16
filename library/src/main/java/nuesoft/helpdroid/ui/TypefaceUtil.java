@@ -1,4 +1,4 @@
-package nuesoft.helpdroid.UI;
+package nuesoft.helpdroid.ui;
 
 import android.graphics.Paint;
 import android.graphics.Typeface;

@@ -1,4 +1,4 @@
-package nuesoft.helpdroid.UI;
+package nuesoft.helpdroid.ui;
 
 import android.graphics.Typeface;
 import android.support.design.widget.Snackbar;

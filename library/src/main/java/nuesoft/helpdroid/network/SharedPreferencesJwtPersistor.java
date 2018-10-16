@@ -29,6 +29,12 @@ public class SharedPreferencesJwtPersistor implements JwtPersistor {
     }
 
     @Override
+    public String get(String identifier) {
+
+        return this.mSharedPreferences.getString(identifier, null);
+    }
+
+    @Override
     public boolean save(String jwt) {
 
         SharedPreferences.Editor sharesPreferencesEditor = this.mSharedPreferences.edit();
@@ -37,10 +43,26 @@ public class SharedPreferencesJwtPersistor implements JwtPersistor {
     }
 
     @Override
+    public boolean save(String jwt, String identifier) {
+
+        SharedPreferences.Editor sharesPreferencesEditor = this.mSharedPreferences.edit();
+        sharesPreferencesEditor.putString(identifier, jwt);
+        return sharesPreferencesEditor.commit();
+    }
+
+    @Override
     public boolean delete() {
 
         SharedPreferences.Editor sharesPreferencesEditor = this.mSharedPreferences.edit();
         sharesPreferencesEditor.remove("jwt");
+        return sharesPreferencesEditor.commit();
+    }
+
+    @Override
+    public boolean delete(String identifier) {
+
+        SharedPreferences.Editor sharesPreferencesEditor = this.mSharedPreferences.edit();
+        sharesPreferencesEditor.remove(identifier);
         return sharesPreferencesEditor.commit();
     }
 }

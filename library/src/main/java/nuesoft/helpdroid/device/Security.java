@@ -38,12 +38,6 @@ public class Security {
 
     public static boolean isCertificateTampered(Context context, String sha1Sign, String sha256Sign) throws CertificateException, NoSuchAlgorithmException, PackageManager.NameNotFoundException {
 
-
-
-
-
-
-
         try {
 
             String SHA1 = AppSigner.getSign(context, "SHA1");

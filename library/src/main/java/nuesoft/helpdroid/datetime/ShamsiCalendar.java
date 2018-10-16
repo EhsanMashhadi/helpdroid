@@ -1,4 +1,4 @@
-package nuesoft.helpdroid.util;
+package nuesoft.helpdroid.datetime;
 
 import java.util.Date;
 import java.util.Locale;

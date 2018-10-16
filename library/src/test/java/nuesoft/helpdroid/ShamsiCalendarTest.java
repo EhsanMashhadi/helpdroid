@@ -7,7 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import nuesoft.helpdroid.util.ShamsiCalendar;
+import nuesoft.helpdroid.datetime.ShamsiCalendar;
 
 /**
  * Created by mysterious on 9/15/17.

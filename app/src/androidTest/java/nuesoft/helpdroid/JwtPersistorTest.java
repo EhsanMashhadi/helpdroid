@@ -24,7 +24,7 @@ public class JwtPersistorTest {
     @Test
     public void saveJwt() {
 
-        String jwt = "test";
+        String jwt = "mockJwt";
         boolean result = sharedPreferencesJwtPersistor.save(jwt);
         Assert.assertTrue(result);
         String expectedJwt = sharedPreferencesJwtPersistor.get();
@@ -32,9 +32,21 @@ public class JwtPersistorTest {
     }
 
     @Test
+    public void saveJwtWithIdentifier() {
+
+        String jwt = "mockJwt";
+        String identifier = "identifier";
+
+        boolean result = sharedPreferencesJwtPersistor.save(jwt, identifier);
+        Assert.assertTrue(result);
+        String expectedJwt = sharedPreferencesJwtPersistor.get(identifier);
+        Assert.assertEquals(jwt, expectedJwt);
+    }
+
+    @Test
     public void clearJwt() {
 
-        String jwt = "test";
+        String jwt = "mockJwt";
         boolean result = sharedPreferencesJwtPersistor.save(jwt);
         Assert.assertTrue(result);
         result = sharedPreferencesJwtPersistor.delete();
@@ -43,4 +55,16 @@ public class JwtPersistorTest {
         Assert.assertNull(expectedJwt);
     }
 
+    @Test
+    public void clearJwtWithIdentifier() {
+
+        String jwt = "mockJwt";
+        String identifier = "mockIdentifier";
+        boolean result = sharedPreferencesJwtPersistor.save(jwt, identifier);
+        Assert.assertTrue(result);
+        result = sharedPreferencesJwtPersistor.delete(identifier);
+        Assert.assertTrue(result);
+        String expectedJwt = sharedPreferencesJwtPersistor.get(identifier);
+        Assert.assertNull(expectedJwt);
+    }
 }
