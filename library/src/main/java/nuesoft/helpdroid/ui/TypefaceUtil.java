@@ -56,7 +56,7 @@ public class TypefaceUtil {
         }
     }
 
-    public static void setBottomNavigationMenuStyle(BottomNavigationView navigationView,Typeface typeface) {
+    public static void setBottomNavigationMenuStyle(BottomNavigationView navigationView, Typeface typeface) {
 
         Menu menu = navigationView.getMenu();
 
@@ -74,17 +74,20 @@ public class TypefaceUtil {
         private final Typeface newType;
 
         public CustomTypefaceSpan(String family, Typeface type) {
+
             super(family);
             newType = type;
         }
 
         @Override
         public void updateDrawState(TextPaint ds) {
+
             applyCustomTypeFace(ds, newType);
         }
 
         @Override
         public void updateMeasureState(TextPaint paint) {
+
             applyCustomTypeFace(paint, newType);
         }
 
