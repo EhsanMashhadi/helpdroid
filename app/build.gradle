@@ -1,9 +1,9 @@
 apply plugin: 'com.android.application'
 
 android {
-
     compileSdkVersion 27
     buildToolsVersion '28.0.3'
+
     defaultConfig {
         applicationId "nuesoft.helpdroid.application"
         minSdkVersion 17
@@ -11,23 +11,23 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
-    buildTypes {
 
+    buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug{
             testCoverageEnabled true
-
         }
     }
+
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
     }
+
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
         exclude 'META-INF/LICENSE.txt'
@@ -49,12 +49,12 @@ android {
 
 dependencies {
 
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':library')
+    implementation 'com.android.support:design:27.1.1'
+
     testImplementation 'junit:junit:4.12'
+
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation 'com.android.support:design:27.1.1'
-    implementation project(':library')
-    implementation 'junit:junit:4.12'
 }
