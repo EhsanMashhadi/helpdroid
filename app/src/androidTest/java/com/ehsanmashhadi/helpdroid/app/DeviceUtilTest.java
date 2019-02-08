@@ -1,8 +1,8 @@
-package com.ehsanmashhadi.helpdroid;
+package com.ehsanmashhadi.helpdroid.app;
 
 
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
+import androidx.test.InstrumentationRegistry;
 
 import org.junit.Assert;
 import org.junit.Test;

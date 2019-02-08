@@ -1,4 +1,4 @@
-package com.ehsanmashhadi.helpdroid;
+package com.ehsanmashhadi.helpdroid.app;
 
 import org.junit.Assert;
 import org.junit.Test;

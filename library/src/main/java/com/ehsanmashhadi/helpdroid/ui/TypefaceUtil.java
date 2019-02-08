@@ -2,8 +2,8 @@ package com.ehsanmashhadi.helpdroid.ui;
 
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.TextInputLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.textfield.TextInputLayout;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextPaint;

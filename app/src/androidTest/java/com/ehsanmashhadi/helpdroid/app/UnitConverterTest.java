@@ -1,8 +1,8 @@
-package com.ehsanmashhadi.helpdroid;
+package com.ehsanmashhadi.helpdroid.app;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.test.InstrumentationRegistry;
+import androidx.test.InstrumentationRegistry;
 import android.util.DisplayMetrics;
 
 import org.junit.Assert;

@@ -1,7 +1,7 @@
 package com.ehsanmashhadi.helpdroid.ui;
 
 import android.graphics.Typeface;
-import android.support.design.widget.Snackbar;
+import com.google.android.material.snackbar.Snackbar;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,7 +11,7 @@ public class SnackBar {
 
         final Snackbar snackBar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
         snackBar.getView().setBackgroundColor(backgroundColor);
-        TextView textView = (TextView) (snackBar.getView()).findViewById(android.support.design.R.id.snackbar_text);
+        TextView textView = (TextView) (snackBar.getView()).findViewById(com.google.android.material.R.id.snackbar_text);
         textView.setTypeface(typeface);
         textView.setTextColor(textColor);
         snackBar.show();

@@ -1,9 +1,9 @@
-package com.ehsanmashhadi.helpdroid;
+package com.ehsanmashhadi.helpdroid.app;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Assert;
 import org.junit.Test;
