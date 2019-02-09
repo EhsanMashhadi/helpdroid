@@ -2,9 +2,11 @@ package com.ehsanmashhadi.helpdroid.device;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.Settings;
+import android.util.DisplayMetrics;
 
 import java.util.Calendar;
 
@@ -38,5 +40,17 @@ public class DeviceUtil {
 
         String secureId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         return secureId;
+    }
+
+    public static int getDeviceWidthInPixel() {
+
+        DisplayMetrics displayMetricsAdd = Resources.getSystem().getDisplayMetrics();
+        return displayMetricsAdd.widthPixels;
+    }
+
+    public static int getDeviceHeightInPixel() {
+
+        DisplayMetrics displayMetricsAdd = Resources.getSystem().getDisplayMetrics();
+        return displayMetricsAdd.heightPixels;
     }
 }

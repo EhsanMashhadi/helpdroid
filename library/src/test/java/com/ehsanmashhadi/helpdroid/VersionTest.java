@@ -22,52 +22,41 @@ import static org.mockito.Mockito.when;
 public class VersionTest {
 
     @Mock
-    Context context;
+    private Context mContext;
 
     @Mock
-    PackageInfo packageInfo;
+    private PackageInfo mPackageInfo;
 
     @Mock
-    PackageManager packageManager;
+    private PackageManager mPackageManager;
 
     @Before
     public void setup() {
 
         MockitoAnnotations.initMocks(this);
-
     }
 
     @Test
-    public void testVersionName() {
+    public void testVersionName_FirstVersion() throws PackageManager.NameNotFoundException {
 
-        try {
-            when(context.getPackageName()).thenReturn("package_name");
-            Assert.assertEquals(context.getPackageName(), "package_name");
-            when(packageManager.getPackageInfo("package_name", 0)).thenReturn(packageInfo);
-            when(context.getPackageManager()).thenReturn(packageManager);
-            packageInfo.versionName = "1.0";
-            String versionName = Version.getVersionName(context);
-            Assert.assertEquals(versionName, "1.0");
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+        when(mContext.getPackageName()).thenReturn("package_name");
+        Assert.assertEquals(mContext.getPackageName(), "package_name");
+        when(mPackageManager.getPackageInfo("package_name", 0)).thenReturn(mPackageInfo);
+        when(mContext.getPackageManager()).thenReturn(mPackageManager);
+        mPackageInfo.versionName = "1.0.0";
+        String versionName = Version.getVersionName(mContext);
+        Assert.assertEquals(versionName, "1.0.0");
     }
 
     @Test
-    public void testVersionCode() {
+    public void testVersionCode_1() throws PackageManager.NameNotFoundException {
 
-        try {
-
-            when(context.getPackageName()).thenReturn("package_name");
-            Assert.assertEquals(context.getPackageName(), "package_name");
-            when(packageManager.getPackageInfo("package_name", 0)).thenReturn(packageInfo);
-            when(context.getPackageManager()).thenReturn(packageManager);
-            packageInfo.versionCode = 1;
-            int versionCode = Version.getVersionCode(context);
-            Assert.assertEquals(versionCode, 1);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+        when(mContext.getPackageName()).thenReturn("package_name");
+        Assert.assertEquals(mContext.getPackageName(), "package_name");
+        when(mPackageManager.getPackageInfo("package_name", 0)).thenReturn(mPackageInfo);
+        when(mContext.getPackageManager()).thenReturn(mPackageManager);
+        mPackageInfo.versionCode = 1;
+        int versionCode = Version.getVersionCode(mContext);
+        Assert.assertEquals(versionCode, 1);
     }
-
 }

@@ -1,7 +1,5 @@
 package com.ehsanmashhadi.helpdroid;
 
-
-
 import org.junit.Test;
 
 import com.ehsanmashhadi.helpdroid.util.Converter;
@@ -23,26 +21,6 @@ public class ConverterTest {
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();
-        }
-    }
-
-    @Test
-    public void stringToHexWrongLength() {
-
-        try {
-//            Converter.hexStringToBytes("a1b");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void stringToHexWrongDigit() {
-
-        try {
-//            Converter.hexStringToBytes("WRONGDIGIT");
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -74,7 +52,5 @@ public class ConverterTest {
         bytes[0]=65;
         bytes[1]=66;
         Assert.assertEquals("AB",Converter.byteArrayToUnicodeString(bytes));
-
     }
-
 }

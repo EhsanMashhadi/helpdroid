@@ -4,8 +4,6 @@ import android.content.Context;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -19,8 +17,6 @@ import com.ehsanmashhadi.helpdroid.application.ApplicationUtil;
 @RunWith(AndroidJUnit4.class)
 public class ApplicationUtilTest {
 
-
-    Context context;
     @Test
     public void testRestartApplication() {
 
@@ -31,13 +27,5 @@ public class ApplicationUtilTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Test
-    public void testDebuggable(){
-
-        Context context = InstrumentationRegistry.getTargetContext();
-        Assert.assertTrue(ApplicationUtil.isDebuggable(context));
-
     }
 }

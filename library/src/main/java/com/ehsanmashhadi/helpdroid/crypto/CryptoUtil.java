@@ -1,24 +1,16 @@
 package com.ehsanmashhadi.helpdroid.crypto;
 
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.security.Security;
-import java.security.spec.InvalidKeySpecException;
+import androidx.annotation.NonNull;
+import com.ehsanmashhadi.helpdroid.application.AppSigner;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.Mac;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
+import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.Charset;
+import java.security.*;
+import java.security.spec.InvalidKeySpecException;
+import java.util.Objects;
 
 public class CryptoUtil {
 
@@ -26,8 +18,27 @@ public class CryptoUtil {
         Security.setProperty("crypto.policy", "unlimited");
     }
 
-    public static SecretKey keyDerivationBasedOnPBE(byte[] pin, byte[] salt, String pbeAlgorithm, String encryptionAlgorithm, int iterationNo, int keySize) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    /**
+     * Derivate a key based on PBE
+     *
+     * @param pin                 The context of desired application.
+     * @param salt                The salt value which is used in key derivation.
+     * @param pbeAlgorithm        The pbe algorithm which derivation algorithm should use.
+     * @param encryptionAlgorithm The encryption algorithm which derivation algorithm should use.
+     * @param iterationNo         The iteration number which derivation algorithm should use.
+     * @param keySize             The desired digest method
+     * @return Returns Secret key which is derivated from params.
+     * @throws NullPointerException     If pin or pbeAlgorithm or encryptionAlgorithm is null.
+     * @throws NoSuchAlgorithmException If no Provider supports CertificateFactorySpi implementation for the specified type.
+     * @throws InvalidKeySpecException  If no Provider supports a MessageDigestSpi implementation for the specified algorithm.
+     */
+    public static SecretKey keyDerivationBasedOnPBE(@NonNull byte[] pin, byte[] salt, @NonNull String pbeAlgorithm
+            , String encryptionAlgorithm, int iterationNo, int keySize) throws NoSuchAlgorithmException
+            , InvalidKeySpecException {
 
+        Objects.requireNonNull(pin);
+        Objects.requireNonNull(pbeAlgorithm);
+        Objects.requireNonNull(encryptionAlgorithm);
         if (salt == null) {
             salt = getSecureRandom(16);
         }
@@ -39,8 +50,10 @@ public class CryptoUtil {
     }
 
     /**
-     * @param length The size of generated random byte array.
-     * @return The random byte array.
+     * Generate a secure random number
+     *
+     * @param length The length of desired output.
+     * @return Returns random number which is generated from a secure random generator.
      */
     public static byte[] getSecureRandom(int length) {
 
@@ -52,73 +65,97 @@ public class CryptoUtil {
     }
 
     /**
-     * @param key       Depend on key size (16 byte,32 byte, 64 byte) the AES algorithm will change.
-     * @param iv        Must be random.
+     * Encrypt the plain text using the AES algorithm with iv and key
+     *
+     * @param key       AES key size (16 bytes,32 bytes, 64 bytes).
+     * @param iv        Initial vector which must be a 16 bytes random.
      * @param plainText Plain text which will be encrypted.
-     * @return Cipher Text
+     * @return Cipher text.
      */
-    public static byte[] encryptAesCbcPkcs5Padding(byte[] key, byte[] iv, byte[] plainText) throws NoSuchPaddingException, NoSuchAlgorithmException,
-            BadPaddingException, IllegalBlockSizeException, InvalidAlgorithmParameterException, InvalidKeyException {
+    public static byte[] encryptAesCbcPkcs5Padding(byte[] key, byte[] iv, byte[] plainText) throws
+            NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException
+            , IllegalBlockSizeException, InvalidAlgorithmParameterException, InvalidKeyException {
 
+        Objects.requireNonNull(key);
+        Objects.requireNonNull(iv);
+        Objects.requireNonNull(plainText);
         final String algorithm = "AES/CBC/PKCS5Padding";
         Cipher cipher = Cipher.getInstance(algorithm);
         IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
         SecretKey secretKey = new SecretKeySpec(key, "AES");
         cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivParameterSpec);
-        byte[] cipherText = cipher.doFinal(plainText);
-        return cipherText;
+        return cipher.doFinal(plainText);
     }
 
     /**
-     * @param key        Depend on key size (16 byte,32 byte, 64 byte) the AES algorithm will change.
-     * @param iv         Must be random.
+     * Decrypt the cipher text using the AES algorithm with iv and key
+     *
+     * @param key        AES key size (16 bytes,32 bytes, 64 bytes).
+     * @param iv         Initial vector which must be a 16 bytes random.
      * @param cipherText Cipher text which will be decrypted.
-     * @return Plain Text.
+     * @return Cipher text.
      */
-    public static byte[] decryptAesCbcPkcs5Padding(byte[] key, byte[] iv, byte[] cipherText) throws NoSuchPaddingException, NoSuchAlgorithmException
-            , InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+    public static byte[] decryptAesCbcPkcs5Padding(@NonNull byte[] key, @NonNull byte[] iv, @NonNull byte[] cipherText) throws
+            NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException
+            , InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+        Objects.requireNonNull(key);
+        Objects.requireNonNull(iv);
 
+
+        Objects.requireNonNull(cipherText);
         final String algorithm = "AES/CBC/PKCS5Padding";
         Cipher cipher = Cipher.getInstance(algorithm);
         IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
         SecretKey secretKey = new SecretKeySpec(key, "AES");
         cipher.init(Cipher.DECRYPT_MODE, secretKey, ivParameterSpec);
-        byte[] plainText = cipher.doFinal(cipherText);
-        return plainText;
+        return cipher.doFinal(cipherText);
     }
 
-    public static byte[] hmac(HmacType hmacType, byte[] key, byte[] data) throws InvalidKeyException, NoSuchAlgorithmException {
-
+    /**
+     * Calculate HMAC of data with key
+     *
+     * @param hmacType The type of desired HMAC.
+     * @param key      The key of HMAC function.
+     * @param data     The data which hmac should be calculated on it.
+     * @return Returns HMAC of data.
+     * @throws InvalidKeyException      If pin or pbeAlgorithm or encryptionAlgorithm is null.
+     * @throws NoSuchAlgorithmException If no Provider supports CertificateFactorySpi implementation for the specified type.
+     * @see HmacType
+     */
+    public static byte[] hmac(@NonNull HmacType hmacType, @NonNull byte[] key, @NonNull byte[] data) throws InvalidKeyException, NoSuchAlgorithmException {
+        Objects.requireNonNull(hmacType);
+        Objects.requireNonNull(key);
+        Objects.requireNonNull(data);
         SecretKeySpec hmacKey = new SecretKeySpec(key, hmacType.toString());
         Mac mac = Mac.getInstance(hmacType.toString());
         mac.init(hmacKey);
         return mac.doFinal(data);
     }
 
-    public static byte[] sha128(String value) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    /**
+     * Calculate digest digest of input.
+     *
+     * @param value      The input value.
+     * @param charset    The charset of input string.
+     * @param digestType The desired digest type.
+     * @return Returns digest of input.
+     * @throws InvalidKeyException      If pin or pbeAlgorithm or encryptionAlgorithm is null.
+     * @throws NoSuchAlgorithmException If no Provider supports CertificateFactorySpi implementation for the specified type.
+     */
+    public static byte[] digest(@NonNull String value, @NonNull Charset charset, AppSigner.DigestType digestType)
+            throws NoSuchAlgorithmException {
 
-        MessageDigest messageDigest = null;
-        messageDigest = MessageDigest.getInstance("SHA1");
-        messageDigest.update(value.getBytes("UTF-8"));
-        byte[] digest = messageDigest.digest();
-        return digest;
+        Objects.requireNonNull(value);
+        Objects.requireNonNull(charset);
+        MessageDigest messageDigest = MessageDigest.getInstance(digestType.getDigestMethod());
+        messageDigest.update(value.getBytes(charset));
+        return messageDigest.digest();
     }
 
-    public static byte[] sha256(String value) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-
-        MessageDigest messageDigest = null;
-        messageDigest = MessageDigest.getInstance("SHA-256");
-        messageDigest.update(value.getBytes("UTF-8"));
-        byte[] digest = messageDigest.digest();
-        return digest;
-    }
-
-    public static byte[] sha512(String value) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-
-        MessageDigest messageDigest = null;
-        messageDigest = MessageDigest.getInstance("SHA-512");
-        messageDigest.update(value.getBytes("UTF-8"));
-        byte[] digest = messageDigest.digest();
-        return digest;
+    public enum HmacType {
+        HmacSHA1,
+        HmacSHA256,
+        HmacSHA384,
+        HmacSHA512
     }
 }

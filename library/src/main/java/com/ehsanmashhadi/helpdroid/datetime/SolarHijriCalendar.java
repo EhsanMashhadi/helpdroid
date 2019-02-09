@@ -1,39 +1,34 @@
 package com.ehsanmashhadi.helpdroid.datetime;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Locale;
 
 /**
  * Created by Ehsan on 2016-07-09.
  */
-public class ShamsiCalendar {
+public class SolarHijriCalendar {
 
     private int date;
     private int month;
     private int year;
+    private Calendar mGregorianCalendar;
 
-    private ShamsiCalendar() {
+    public SolarHijriCalendar(Calendar gregorianCalendar) {
 
-        Date MiladiDate = new Date();
-        calcShamsiCalendar(MiladiDate);
+        mGregorianCalendar = gregorianCalendar;
     }
 
-    public ShamsiCalendar(Date MiladiDate) {
-
-        calcShamsiCalendar(MiladiDate);
-    }
-
-    private void calcShamsiCalendar(Date MiladiDate) {
-
-        String strWeekDay = "";
-        String strMonth = "";
+    private void convert(Calendar calendar) {
 
         int ld;
 
-        int miladiYear = MiladiDate.getYear() + 1900;
-        int miladiMonth = MiladiDate.getMonth() + 1;
-        int miladiDate = MiladiDate.getDate();
-        int WeekDay = MiladiDate.getDay();
+        String strWeekDay;
+        String strMonth;
+
+        int year = calendar.get(Calendar.YEAR) ;
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
         int[] buf1 = new int[12];
         int[] buf2 = new int[12];
@@ -64,40 +59,40 @@ public class ShamsiCalendar {
         buf2[10] = 305;
         buf2[11] = 335;
 
-        if ((miladiYear % 4) != 0) {
-            date = buf1[miladiMonth - 1] + miladiDate;
+        if ((year % 4) != 0) {
+            date = buf1[month - 1] + dayOfMonth;
 
             if (date > 79) {
                 date = date - 79;
                 if (date <= 186) {
                     switch (date % 31) {
                         case 0:
-                            month = date / 31;
+                            this.month = date / 31;
                             date = 31;
                             break;
                         default:
-                            month = (date / 31) + 1;
+                            this.month = (date / 31) + 1;
                             date = (date % 31);
                             break;
                     }
-                    year = miladiYear - 621;
+                    this.year = year - 621;
                 } else {
                     date = date - 186;
 
                     switch (date % 30) {
                         case 0:
-                            month = (date / 30) + 6;
+                            this.month = (date / 30) + 6;
                             date = 30;
                             break;
                         default:
-                            month = (date / 30) + 7;
+                            this.month = (date / 30) + 7;
                             date = (date % 30);
                             break;
                     }
-                    year = miladiYear - 621;
+                    this.year = year - 621;
                 }
             } else {
-                if ((miladiYear > 1996) && (miladiYear % 4) == 1) {
+                if ((year > 1996) && (year % 4) == 1) {
                     ld = 11;
                 } else {
                     ld = 10;
@@ -106,20 +101,20 @@ public class ShamsiCalendar {
 
                 switch (date % 30) {
                     case 0:
-                        month = (date / 30) + 9;
+                        this.month = (date / 30) + 9;
                         date = 30;
                         break;
                     default:
-                        month = (date / 30) + 10;
+                        this.month = (date / 30) + 10;
                         date = (date % 30);
                         break;
                 }
-                year = miladiYear - 622;
+                this.year = year - 622;
             }
         } else {
-            date = buf2[miladiMonth - 1] + miladiDate;
+            date = buf2[month - 1] + dayOfMonth;
 
-            if (miladiYear >= 1996) {
+            if (year >= 1996) {
                 ld = 79;
             } else {
                 ld = 80;
@@ -130,49 +125,49 @@ public class ShamsiCalendar {
                 if (date <= 186) {
                     switch (date % 31) {
                         case 0:
-                            month = (date / 31);
+                            this.month = (date / 31);
                             date = 31;
                             break;
                         default:
-                            month = (date / 31) + 1;
+                            this.month = (date / 31) + 1;
                             date = (date % 31);
                             break;
                     }
-                    year = miladiYear - 621;
+                    this.year = year - 621;
                 } else {
                     date = date - 186;
 
                     switch (date % 30) {
                         case 0:
-                            month = (date / 30) + 6;
+                            this.month = (date / 30) + 6;
                             date = 30;
                             break;
                         default:
-                            month = (date / 30) + 7;
+                            this.month = (date / 30) + 7;
                             date = (date % 30);
                             break;
                     }
-                    year = miladiYear - 621;
+                    this.year = year - 621;
                 }
             } else {
                 date = date + 10;
 
                 switch (date % 30) {
                     case 0:
-                        month = (date / 30) + 9;
+                        this.month = (date / 30) + 9;
                         date = 30;
                         break;
                     default:
-                        month = (date / 30) + 10;
+                        this.month = (date / 30) + 10;
                         date = (date % 30);
                         break;
                 }
-                year = miladiYear - 622;
+                this.year = year - 622;
             }
 
         }
 
-        switch (month) {
+        switch (this.month) {
             case 1:
                 strMonth = "فروردين";
                 break;
@@ -211,7 +206,7 @@ public class ShamsiCalendar {
                 break;
         }
 
-        switch (WeekDay) {
+        switch (dayOfWeek) {
             case 0:
                 strWeekDay = "يکشنبه";
                 break;
@@ -236,19 +231,11 @@ public class ShamsiCalendar {
         }
     }
 
-    public static String convertToShamsiDate(Date date) {
+    public static String getCurrentShamsiDate(Calendar calendar) {
 
         Locale loc = new Locale("en_US");
-        ShamsiCalendar shamsiCalendar = new ShamsiCalendar(date);
-        return String.valueOf(shamsiCalendar.year) + "/" + String.format(loc, "%02d",
-                shamsiCalendar.month) + "/" + String.format(loc, "%02d", shamsiCalendar.date);
-    }
-
-    public static String getCurrentShamsiDate() {
-
-        Locale loc = new Locale("en_US");
-        ShamsiCalendar shamsiCalendar = new ShamsiCalendar();
-        return String.valueOf(shamsiCalendar.year) + "/" + String.format(loc, "%02d",
-                shamsiCalendar.month) + "/" + String.format(loc, "%02d", shamsiCalendar.date);
+        SolarHijriCalendar solarHijriCalendar = new SolarHijriCalendar(calendar);
+        return String.valueOf(solarHijriCalendar.year) + "/" + String.format(loc, "%02d",
+                solarHijriCalendar.month) + "/" + String.format(loc, "%02d", solarHijriCalendar.date);
     }
 }

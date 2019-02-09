@@ -40,8 +40,8 @@ public class Security {
 
         try {
 
-            String SHA1 = AppSigner.getSign(context, "SHA1");
-            String SHA256 = AppSigner.getSign(context, "SHA256");
+            String SHA1 = AppSigner.getSign(context, AppSigner.DigestType.sha1);
+            String SHA256 = AppSigner.getSign(context, AppSigner.DigestType.sha256);
 
             if (!sha1Sign.equals(SHA1) || !sha256Sign.equals(SHA256)) {
 
