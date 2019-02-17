@@ -1,9 +1,9 @@
 package com.ehsanmashhadi.helpdroid;
 
+import com.ehsanmashhadi.helpdroid.validation.Validator;
+
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.ehsanmashhadi.helpdroid.validation.Validator;
 
 /**
  * Created by mysterious on 9/16/17.
@@ -12,51 +12,33 @@ import com.ehsanmashhadi.helpdroid.validation.Validator;
 public class ValidatorTest {
 
     @Test
-    public void phoneRight() {
+    public void testIsEmailValid_correctEmail() {
 
-        Assert.assertTrue(Validator.isPhoneValid("9377426996"));
+        Assert.assertTrue(Validator.isEmailValid("test@test.com"));
+        Assert.assertTrue(Validator.isEmailValid("test1@test.com"));
     }
 
     @Test
-    public void phoneWrong() {
-
-        Assert.assertFalse(Validator.isPhoneValid("09377426996"));
-    }
-
-    @Test
-    public void emailRight() {
-
-        Assert.assertTrue(Validator.isEmailValid("test@carrene.com"));
-    }
-
-    @Test
-    public void emailWrong() {
+    public void testIsEmailValid_wrongEmail() {
 
         Assert.assertFalse(Validator.isEmailValid("test@"));
+        Assert.assertFalse(Validator.isEmailValid("test@test"));
+        Assert.assertFalse(Validator.isEmailValid("test.com"));
+        Assert.assertFalse(Validator.isEmailValid(".com"));
+        Assert.assertFalse(Validator.isEmailValid("@.com"));
     }
 
     @Test
-    public void passwordRight() {
+    public void testIsPasswordValid_correctPassword() {
 
         Assert.assertTrue(Validator.isPasswordValid("Password123@"));
     }
 
     @Test
-    public void passwordWrong() {
+    public void testIsPasswordValid_wrongPassword() {
 
         Assert.assertFalse(Validator.isPasswordValid("123456"));
-    }
-
-    @Test
-    public void passwordWrong1() {
-
         Assert.assertFalse(Validator.isPasswordValid("Ehsan123"));
-    }
-
-    @Test
-    public void passwordWrong2() {
-
         Assert.assertFalse(Validator.isPasswordValid("ehsan123@"));
     }
-
 }

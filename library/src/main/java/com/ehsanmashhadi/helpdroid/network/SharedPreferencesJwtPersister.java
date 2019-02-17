@@ -6,23 +6,27 @@ import android.content.SharedPreferences;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
-public class SharedPreferencesJwtPersistor implements JwtPersistor {
+import androidx.annotation.NonNull;
+
+public class SharedPreferencesJwtPersister implements JwtPersister {
 
     private final SharedPreferences mSharedPreferences;
 
-    public SharedPreferencesJwtPersistor(Context context) {
+    public SharedPreferencesJwtPersister(@NonNull Context context) {
 
         this(context.getSharedPreferences("JwtPersistence", Context.MODE_PRIVATE));
     }
 
-    public SharedPreferencesJwtPersistor(Context context, String name) {
+    public SharedPreferencesJwtPersister(@NonNull Context context, @NonNull String name) {
 
         this(context.getSharedPreferences(name, Context.MODE_PRIVATE));
     }
 
-    public SharedPreferencesJwtPersistor(SharedPreferences sharedPreferences) {
+    public SharedPreferencesJwtPersister(@NonNull SharedPreferences sharedPreferences) {
 
+        Objects.requireNonNull(sharedPreferences);
         this.mSharedPreferences = sharedPreferences;
     }
 
@@ -33,22 +37,26 @@ public class SharedPreferencesJwtPersistor implements JwtPersistor {
     }
 
     @Override
-    public String get(String identifier) {
+    public String get(@NonNull String identifier) {
 
+        Objects.requireNonNull(identifier);
         return this.mSharedPreferences.getString("jwt" + identifier, null);
     }
 
     @Override
-    public boolean save(String jwt) {
+    public boolean save(@NonNull String jwt) {
 
+        Objects.requireNonNull(jwt);
         SharedPreferences.Editor sharesPreferencesEditor = this.mSharedPreferences.edit();
         sharesPreferencesEditor.putString("jwt", jwt);
         return sharesPreferencesEditor.commit();
     }
 
     @Override
-    public boolean save(String jwt, String identifier) {
+    public boolean save(@NonNull String jwt, @NonNull String identifier) {
 
+        Objects.requireNonNull(jwt);
+        Objects.requireNonNull(identifier);
         SharedPreferences.Editor sharesPreferencesEditor = this.mSharedPreferences.edit();
         sharesPreferencesEditor.putString("jwt" + identifier, jwt);
         return sharesPreferencesEditor.commit();
@@ -63,8 +71,9 @@ public class SharedPreferencesJwtPersistor implements JwtPersistor {
     }
 
     @Override
-    public boolean delete(String identifier) {
+    public boolean delete(@NonNull String identifier) {
 
+        Objects.requireNonNull(identifier);
         SharedPreferences.Editor sharesPreferencesEditor = this.mSharedPreferences.edit();
         sharesPreferencesEditor.remove("jwt" + identifier);
         return sharesPreferencesEditor.commit();
@@ -107,8 +116,9 @@ public class SharedPreferencesJwtPersistor implements JwtPersistor {
     }
 
     @Override
-    public String getIdentifier(String jwt) {
+    public String getIdentifier(@NonNull String jwt) {
 
+        Objects.requireNonNull(jwt);
         for (Map.Entry<String, ?> entry : mSharedPreferences.getAll().entrySet()) {
             String value = (String) entry.getValue();
             if (value.equals(jwt)) {
@@ -119,8 +129,8 @@ public class SharedPreferencesJwtPersistor implements JwtPersistor {
     }
 
     @Override
-    public boolean contains(String identifier) {
-
+    public boolean contains(@NonNull String identifier) {
+        Objects.requireNonNull(identifier);
         return mSharedPreferences.contains(identifier);
     }
 }

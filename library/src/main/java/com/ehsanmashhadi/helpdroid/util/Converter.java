@@ -8,34 +8,45 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.text.SimpleDateFormat;
+import java.util.Objects;
+
+import androidx.annotation.NonNull;
 
 public class Converter {
 
+
     private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
 
-    public static byte[] hexStringToBytes(String hex) throws Exception {
-
+    /**
+     * Return byte array which consists values of hex string
+     *
+     * @param hex The desired hex string.
+     * @return Returns a byte array.
+     * @throws IllegalLengthException If {@code hex} length is not even.
+     * @throws IllegalHexCharacter    If {@code hex} contains invalid hex characters
+     * @throws NullPointerException   if {@code hex} is null
+     */
+    public static byte[] hexStringToBytes(@NonNull String hex) throws IllegalHexCharacter
+            , IllegalLengthException {
+        Objects.requireNonNull(hex);
         int length = hex.length();
         if (length % 2 != 0) {
-            throw new Exception("Illegal string length: " + length);
+            throw new IllegalLengthException("Illegal string length: " + length);
         }
 
         int bytesLength = length / 2;
         byte[] bytes = new byte[bytesLength];
         int idxChar = 0;
         for (int i = 0; i < bytesLength; i++) {
-            int value = parseHexDigit(hex.charAt(idxChar++)) << 4;
-            value |= parseHexDigit(hex.charAt(idxChar++));
+            int value = parseHexCharacter(hex.charAt(idxChar++)) << 4;
+            value |= parseHexCharacter(hex.charAt(idxChar++));
             bytes[i] = (byte) value;
         }
         return bytes;
     }
 
-    public static int parseHexDigit(char c) throws Exception {
+    private static int parseHexCharacter(char c) throws IllegalHexCharacter {
+
         if ('0' <= c && c <= '9') {
             return c - '0';
         } else if ('A' <= c && c <= 'F') {
@@ -43,10 +54,18 @@ public class Converter {
         } else if ('a' <= c && c <= 'f') {
             return c - 'a' + 10;
         }
-        throw new Exception("Illegal hex digit: " + c);
+        throw new IllegalHexCharacter("Illegal hex digit: " + c);
     }
 
-    public static String bytesToHexString(byte[] bytes) {
+    /**
+     * Return hex string of input bytes
+     *
+     * @param bytes The desired byte array.
+     * @return Returns a hex string.
+     * @throws NullPointerException if {@code bytes} is null
+     */
+    public static String bytesToHexString(@NonNull byte[] bytes) {
+        Objects.requireNonNull(bytes);
         char[] hexChars = new char[bytes.length * 2];
         for (int j = 0; j < bytes.length; j++) {
             int v = bytes[j] & 0xFF;
@@ -56,116 +75,49 @@ public class Converter {
         return new String(hexChars);
     }
 
-
-    public static String byteArrayToString(byte[] value) {
-
-        String strValue = new String(value, 0, value.length).trim();
-        return strValue;
-    }
-
-    public static String byteArrayToUnicodeString(byte[] value) {
-
-        String strValue = null;
-        try {
-            strValue = new String(value, 0, value.length, "UTF-8").trim();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return strValue;
-    }
-
-
-    public static byte[] longToByteArrayLittleEndian(long value) {
-
-        ByteBuffer buffer = ByteBuffer.allocate(8);
-        buffer.order(ByteOrder.LITTLE_ENDIAN);
-        buffer.putLong(value);
-        return buffer.array();
-    }
-
-    public static byte[] longToByteArrayBigEndian(long value) {
-
-        ByteBuffer buffer = ByteBuffer.allocate(8);
-        buffer.order(ByteOrder.BIG_ENDIAN);
-        buffer.putLong(value);
-        return buffer.array();
-    }
-
-    public static long byteArrayToLongBigEndian(byte[] value) {
-
-        ByteBuffer buffer = ByteBuffer.wrap(value);
-        buffer.order(ByteOrder.BIG_ENDIAN);
-        return buffer.getLong();
-    }
-
-    public static long byteArrayToLongLittleEndian(byte[] value) {
-
-        ByteBuffer buffer = ByteBuffer.wrap(value);
-        buffer.order(ByteOrder.LITTLE_ENDIAN);
-        return buffer.getLong();
-    }
-
-    public static short byteArrayToShortBigEndian(byte[] value) {
-
-        ByteBuffer buffer = ByteBuffer.wrap(value);
-        buffer.order(ByteOrder.BIG_ENDIAN);
-        return buffer.getShort();
-    }
-
-    public static short byteArrayToShortLittleEndian(byte[] value) {
-
-        ByteBuffer buffer = ByteBuffer.wrap(value);
-        buffer.order(ByteOrder.LITTLE_ENDIAN);
-        return buffer.getShort();
-    }
-
-    public static byte byteArrayToByteLittleEndian(byte[] value) {
-
-        ByteBuffer buffer = ByteBuffer.wrap(value);
-        buffer.order(ByteOrder.LITTLE_ENDIAN);
-        return buffer.get(0);
-    }
-
-    public static byte byteArrayToByteBigEndian(byte[] value) {
-
-        ByteBuffer buffer = ByteBuffer.wrap(value);
-        buffer.order(ByteOrder.BIG_ENDIAN);
-        return buffer.get(0);
-    }
-
-    public static int byteArrayToIntLittleEndian(byte[] value) {
-
-        ByteBuffer buffer = ByteBuffer.wrap(value);
-        buffer.order(ByteOrder.LITTLE_ENDIAN);
-        return buffer.getInt();
-    }
-
-    public static int byteArrayToIntBigEndian(byte[] value) {
-
-        ByteBuffer buffer = ByteBuffer.wrap(value);
-        buffer.order(ByteOrder.BIG_ENDIAN);
-        return buffer.getInt();
-    }
-
-    public static String getTimeISOFormat(long timestamp) {
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-        String dateTimeString = simpleDateFormat.format(new java.util.Date(timestamp * 1000));
-        return dateTimeString;
-    }
-
+    /**
+     * Return DP value of input PX
+     *
+     * @param dp      The desired dp value.
+     * @param context The context.
+     * @return Returns a PX value.
+     * @throws NullPointerException if {@code context} is null
+     */
     public static float dpToPx(float dp, Context context) {
+        Objects.requireNonNull(context);
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        float px = dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-        return px;
+        return dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 
+    /**
+     * Return PX value of input DP
+     *
+     * @param px      The desired px value.
+     * @param context The context.
+     * @return Returns a DP value.
+     * @throws NullPointerException if {@code context} is null
+     */
     public static float pxToDp(float px, Context context) {
+        Objects.requireNonNull(context);
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        float dp = px / ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-        return dp;
+        return px / ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 
+    public static class IllegalLengthException extends Exception {
+
+        IllegalLengthException(String exception) {
+            super(exception);
+        }
+    }
+
+    public static class IllegalHexCharacter extends Exception {
+        IllegalHexCharacter(String exception) {
+            super(exception);
+        }
+    }
 }
+
+
+

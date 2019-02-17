@@ -1,12 +1,14 @@
 package com.ehsanmashhadi.helpdroid.crypto;
 
 import androidx.annotation.NonNull;
+
 import com.ehsanmashhadi.helpdroid.application.AppSigner;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
+
 import java.nio.charset.Charset;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
@@ -32,16 +34,15 @@ public class CryptoUtil {
      * @throws NoSuchAlgorithmException If no Provider supports CertificateFactorySpi implementation for the specified type.
      * @throws InvalidKeySpecException  If no Provider supports a MessageDigestSpi implementation for the specified algorithm.
      */
-    public static SecretKey keyDerivationBasedOnPBE(@NonNull byte[] pin, byte[] salt, @NonNull String pbeAlgorithm
+    public static SecretKey keyDerivationBasedOnPBE(@NonNull byte[] pin, @NonNull byte[] salt, @NonNull String pbeAlgorithm
             , String encryptionAlgorithm, int iterationNo, int keySize) throws NoSuchAlgorithmException
             , InvalidKeySpecException {
 
         Objects.requireNonNull(pin);
+        Objects.requireNonNull(salt);
         Objects.requireNonNull(pbeAlgorithm);
         Objects.requireNonNull(encryptionAlgorithm);
-        if (salt == null) {
-            salt = getSecureRandom(16);
-        }
+
         SecretKeyFactory factory = SecretKeyFactory.getInstance(pbeAlgorithm);
         char[] pinCharArray = new String(pin).toCharArray();
         PBEKeySpec spec = new PBEKeySpec(pinCharArray, salt, iterationNo, keySize);

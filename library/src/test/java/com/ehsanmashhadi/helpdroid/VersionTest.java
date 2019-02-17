@@ -37,7 +37,7 @@ public class VersionTest {
     }
 
     @Test
-    public void testVersionName_FirstVersion() throws PackageManager.NameNotFoundException {
+    public void testVersionName() throws PackageManager.NameNotFoundException {
 
         when(mContext.getPackageName()).thenReturn("package_name");
         Assert.assertEquals(mContext.getPackageName(), "package_name");
@@ -49,7 +49,7 @@ public class VersionTest {
     }
 
     @Test
-    public void testVersionCode_1() throws PackageManager.NameNotFoundException {
+    public void testVersionCode() throws PackageManager.NameNotFoundException {
 
         when(mContext.getPackageName()).thenReturn("package_name");
         Assert.assertEquals(mContext.getPackageName(), "package_name");

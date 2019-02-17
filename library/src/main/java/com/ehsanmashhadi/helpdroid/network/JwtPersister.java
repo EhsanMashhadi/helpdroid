@@ -2,7 +2,7 @@ package com.ehsanmashhadi.helpdroid.network;
 
 import java.util.List;
 
-interface JwtPersistor {
+interface JwtPersister {
 
     String get();
 

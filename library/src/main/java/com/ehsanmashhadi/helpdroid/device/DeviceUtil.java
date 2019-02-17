@@ -16,7 +16,12 @@ import java.util.Calendar;
 
 public class DeviceUtil {
 
-
+    /**
+     * Check if the device is connected to the internet
+     *
+     * @param context The application context.
+     * @return Returns true if the device is connected to the internet.
+     */
     public static boolean isConnectedToInternet(Context context) {
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -25,32 +30,57 @@ public class DeviceUtil {
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
+    /**
+     * Return device name
+     *
+     * @return Returns device name of user.
+     */
     public static String getDeviceName() {
 
         return android.os.Build.MODEL;
     }
 
+    /**
+     * Return device time zone
+     *
+     * @return Returns time zone of the device.
+     */
     public static String getDeviceTimeZone() {
 
         Calendar calendar = Calendar.getInstance();
         return calendar.getTimeZone().getID();
     }
 
-    public static String getSecureId(Context context) {
+    /**
+     * Return Android ID of the device
+     *
+     * @return Returns Android ID of the device.
+     */
+    public static String getAndroidId(Context context) {
 
         String secureId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         return secureId;
     }
 
-    public static int getDeviceWidthInPixel() {
+    /**
+     * Return device with value in pixel format
+     *
+     * @return Returns device width in pixel format.
+     */
+    public static int getDeviceWidthInPixel(Context context) {
 
-        DisplayMetrics displayMetricsAdd = Resources.getSystem().getDisplayMetrics();
+        DisplayMetrics displayMetricsAdd = context.getResources().getDisplayMetrics();
         return displayMetricsAdd.widthPixels;
     }
 
-    public static int getDeviceHeightInPixel() {
+    /**
+     * Return device height value in pixel format
+     *
+     * @return Returns device height in pixel format.
+     */
+    public static int getDeviceHeightInPixel(Context context) {
 
-        DisplayMetrics displayMetricsAdd = Resources.getSystem().getDisplayMetrics();
+        DisplayMetrics displayMetricsAdd = context.getResources().getDisplayMetrics();
         return displayMetricsAdd.heightPixels;
     }
 }

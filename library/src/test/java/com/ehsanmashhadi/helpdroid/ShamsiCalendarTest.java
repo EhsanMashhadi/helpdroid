@@ -6,10 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by mysterious on 9/15/17.
@@ -42,7 +39,7 @@ public class ShamsiCalendarTest {
         Mockito.when(calendar.get(Calendar.YEAR)).thenReturn(2019);
         Mockito.when(calendar.get(Calendar.MONTH)).thenReturn(0);
         Mockito.when(calendar.get(Calendar.DAY_OF_MONTH)).thenReturn(1);
-        String shamsiDate= SolarHijriCalendar.getCurrentShamsiDate(calendar);
+        String shamsiDate= SolarHijriCalendar.getSolarHijriDate(calendar);
         Assert.assertEquals(shamsiDate,"1397/10/11");
     }
 }

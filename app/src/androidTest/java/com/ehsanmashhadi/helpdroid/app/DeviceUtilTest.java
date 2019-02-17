@@ -2,6 +2,7 @@ package com.ehsanmashhadi.helpdroid.app;
 
 
 import android.content.Context;
+
 import androidx.test.InstrumentationRegistry;
 
 import org.junit.Assert;
@@ -41,7 +42,7 @@ public class DeviceUtilTest {
     @Test
     public void testSecureId() {
         Context context = InstrumentationRegistry.getTargetContext();
-        String secureId = DeviceUtil.getSecureId(context);
+        String secureId = DeviceUtil.getAndroidId(context);
         Assert.assertNotNull(secureId);
     }
 }

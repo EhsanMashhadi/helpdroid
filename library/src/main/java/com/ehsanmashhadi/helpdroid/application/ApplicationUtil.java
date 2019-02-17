@@ -8,6 +8,7 @@ import android.content.pm.ApplicationInfo;
 import java.util.Objects;
 
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 
 /**
@@ -26,16 +27,5 @@ public class ApplicationUtil {
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
-    }
-
-    /**
-     * Check if the application is debuggable or not.
-     *
-     * @param context The context of desired application to check.
-     * @return Returns true if the application is debuggable, false otherwise.
-     */
-    public static boolean isDebuggable(@NonNull Context context) {
-        Objects.requireNonNull(context);
-        return ((context.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0);
     }
 }

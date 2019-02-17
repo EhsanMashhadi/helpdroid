@@ -2,8 +2,6 @@ package com.ehsanmashhadi.helpdroid.ui;
 
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.textfield.TextInputLayout;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextPaint;
@@ -16,7 +14,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.textfield.TextInputLayout;
+
 import java.lang.reflect.Field;
+import java.util.Objects;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by Ehsan on 3/23/18.
@@ -24,8 +28,10 @@ import java.lang.reflect.Field;
 
 public class TypefaceUtil {
 
-    public static void setTextViewsTypeface(View view, Typeface typeface) {
+    public static void setTextViewsTypeface(@NonNull View view, @NonNull Typeface typeface) {
 
+        Objects.requireNonNull(view);
+        Objects.requireNonNull(typeface);
         if (view instanceof TextView) {
             ((TextView) view).setTypeface(typeface);
         }
@@ -38,25 +44,24 @@ public class TypefaceUtil {
         }
     }
 
-    public static void setTextInputLayoutTypeface(TextInputLayout textInputLayoutTypeface, Typeface typeface) throws NoSuchFieldException, IllegalAccessException {
+    public static void setTextInputLayoutTypeface(@NonNull TextInputLayout textInputLayout, @NonNull Typeface typeface) throws NoSuchFieldException, IllegalAccessException {
 
-        try {
-            Field errorField = textInputLayoutTypeface.getClass().getDeclaredField("mErrorView");
-            errorField.setAccessible(true);
-            TextView textView = (TextView) errorField.get(textInputLayoutTypeface);
-            textView.setTypeface(typeface);
-            textView.setGravity(Gravity.START);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            params.gravity = Gravity.START;
-            textView.setLayoutParams(params);
-        } catch (NoSuchFieldException e) {
-            throw e;
-        } catch (IllegalAccessException e) {
-            throw e;
-        }
+        Objects.requireNonNull(textInputLayout);
+        Objects.requireNonNull(typeface);
+        Field errorField = textInputLayout.getClass().getDeclaredField("mErrorView");
+        errorField.setAccessible(true);
+        TextView textView = (TextView) errorField.get(textInputLayout);
+        textView.setTypeface(typeface);
+        textView.setGravity(Gravity.START);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.START;
+        textView.setLayoutParams(params);
     }
 
-    public static void setBottomNavigationMenuStyle(BottomNavigationView navigationView, Typeface typeface) {
+    public static void setBottomNavigationMenuStyle(@NonNull BottomNavigationView navigationView, @NonNull Typeface typeface) {
+
+        Objects.requireNonNull(navigationView);
+        Objects.requireNonNull(typeface);
 
         Menu menu = navigationView.getMenu();
 
@@ -110,7 +115,6 @@ public class TypefaceUtil {
                 paint.setTextSkewX(-0.25f);
             }
             paint.setTypeface(tf);
-
         }
     }
 }

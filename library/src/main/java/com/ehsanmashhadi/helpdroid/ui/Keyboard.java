@@ -1,11 +1,14 @@
 package com.ehsanmashhadi.helpdroid.ui;
 
 import android.content.Context;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+
+import java.util.Objects;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by mysterious on 9/15/17.
@@ -13,41 +16,34 @@ import android.widget.EditText;
 
 public class Keyboard {
 
-    public static void hideKeyboard(View view) {
+    public static boolean hideKeyboard(@NonNull View view) {
 
-        if (view == null)
-            return;
-
+        Objects.requireNonNull(view);
         InputMethodManager inputMethodManager = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        return inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    public static void showKeyboard(View view) {
+    public static boolean showKeyboard(@NonNull View view) {
 
-        if (view == null)
-            return;
-
+        Objects.requireNonNull(view);
         InputMethodManager inputMethodManager = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+        return inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
     }
 
-    public static void setupSoftKeyboard(final View view) {
+    public static void dismissKeyboardTapAround(@NonNull final View view) {
 
+        Objects.requireNonNull(view);
         if (!(view instanceof EditText)) {
-            view.setOnTouchListener(new View.OnTouchListener() {
-                public boolean onTouch(View v, MotionEvent event) {
-
-                    hideKeyboard(view);
-                    return false;
-                }
+            view.setOnTouchListener((v, event) -> {
+                hideKeyboard(view);
+                return false;
             });
         }
-
         //If a layout container, iterate over children and seed recursion.
         if (view instanceof ViewGroup) {
             for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
                 View innerView = ((ViewGroup) view).getChildAt(i);
-                setupSoftKeyboard(innerView);
+                dismissKeyboardTapAround(innerView);
             }
         }
     }

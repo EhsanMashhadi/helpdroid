@@ -36,7 +36,7 @@ public class AppSignerTest {
     }
 
     @Test
-    public void testSha1_equal() throws PackageManager.NameNotFoundException, CertificateException, NoSuchAlgorithmException {
+    public void testSha1() throws PackageManager.NameNotFoundException, CertificateException, NoSuchAlgorithmException {
 
         Signature[] signatures = {mSignature};
         mPackageInfo.signatures = signatures;
@@ -61,7 +61,7 @@ public class AppSignerTest {
     }
 
     @Test
-    public void testSha256_equal() throws PackageManager.NameNotFoundException, CertificateException, NoSuchAlgorithmException {
+    public void testSha256() throws PackageManager.NameNotFoundException, CertificateException, NoSuchAlgorithmException {
 
         Signature[] signatures = {mSignature};
         mPackageInfo.signatures = signatures;

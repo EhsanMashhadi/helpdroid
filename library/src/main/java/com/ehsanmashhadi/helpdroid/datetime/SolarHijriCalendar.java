@@ -18,17 +18,17 @@ public class SolarHijriCalendar {
         mGregorianCalendar = gregorianCalendar;
     }
 
-    private void convert(Calendar calendar) {
+    private void convert() {
 
         int ld;
 
         String strWeekDay;
         String strMonth;
 
-        int year = calendar.get(Calendar.YEAR) ;
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        int year = mGregorianCalendar.get(Calendar.YEAR) ;
+        int month = mGregorianCalendar.get(Calendar.MONTH) + 1;
+        int dayOfMonth = mGregorianCalendar.get(Calendar.DAY_OF_MONTH);
+        int dayOfWeek = mGregorianCalendar.get(Calendar.DAY_OF_WEEK);
 
         int[] buf1 = new int[12];
         int[] buf2 = new int[12];
@@ -231,10 +231,12 @@ public class SolarHijriCalendar {
         }
     }
 
-    public static String getCurrentShamsiDate(Calendar calendar) {
+    public static String getSolarHijriDate(Calendar calendar) {
 
         Locale loc = new Locale("en_US");
         SolarHijriCalendar solarHijriCalendar = new SolarHijriCalendar(calendar);
+        solarHijriCalendar.convert();
+
         return String.valueOf(solarHijriCalendar.year) + "/" + String.format(loc, "%02d",
                 solarHijriCalendar.month) + "/" + String.format(loc, "%02d", solarHijriCalendar.date);
     }

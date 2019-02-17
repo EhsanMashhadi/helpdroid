@@ -7,18 +7,18 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.ehsanmashhadi.helpdroid.network.SharedPreferencesJwtPersistor;
+import com.ehsanmashhadi.helpdroid.network.SharedPreferencesJwtPersister;
 
 
 public class JwtPersistorTest {
 
-    private static SharedPreferencesJwtPersistor sharedPreferencesJwtPersistor;
+    private static SharedPreferencesJwtPersister sharedPreferencesJwtPersistor;
 
     @BeforeClass
     public static void setUp() {
 
         Context context = InstrumentationRegistry.getTargetContext();
-        sharedPreferencesJwtPersistor = new SharedPreferencesJwtPersistor(context);
+        sharedPreferencesJwtPersistor = new SharedPreferencesJwtPersister(context);
     }
 
     @Test
